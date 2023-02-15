@@ -18,6 +18,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.14}
 \usepackage{anyfontsize}
+\graphicspath{{img}}
 
 % ====================
 % Lengths
@@ -51,7 +52,7 @@
 % ====================
 
 \footercontent{
-  \href{https://www.example.com}{https://www.example.com} \hfill
+  \hfill
   CSLSC 2023, Urbana Illinois \hfill
   \href{mailto:esilk2@illinois.edu}{esilk2@illinois.edu}}
 % (can be left out to remove footer)
@@ -61,7 +62,7 @@
 % ====================
 
 % use this to include logos on the left and/or right side of the header:
-% \logoright{\includegraphics[height=7cm]{logo1.pdf}}
+\logoright{\includegraphics[height=7cm]{pnnl_logo.png}}
 % \logoleft{\includegraphics[height=7cm]{logo2.pdf}}
 
 % ====================
@@ -83,10 +84,11 @@
         however, these often require significant tuning by hand to produce good performance. We
         empirically study the variability of different stochastic algorithms, including second-order
         methods, by treating their performance as an experiment and retraining the same model many
-        times. Using 2-factor ANOVA with interactions, we show that batch size has a statistically
-        significant effect on the peak accuracy of the methods, and that the full batch was largely
-        the worst of them. Additionally, second order optimizers exhibited significantly lower variance,
-        implying they may require less hyperparameter tuning, leading to a reduced overall training time.
+        times. Using 2-factor Analysis of Variance (ANOVA) with interactions, we show that batch
+        size has a statistically significant effect on the peak accuracy of the methods, and that
+        the full batch was largely the worst of them. Additionally, second order optimizers
+        exhibited significantly lower variance, implying they may require less hyperparameter
+        tuning, leading to a reduced overall training time.
 
       \end{block}
 
@@ -95,111 +97,46 @@
           \item Training models in Machine Learning is time consuming and expensive
           \item Traditional Optimization techniques have not seen significant penetration into this field
           \item In particular, Second Order Optimizers (i.e. incorporating curvature information)
-                have been largely written off as to expensive
+                have been largely written off as too expensive
           \item Results in Machine Learning often present ``best case'' results without full
                 empirical characterization
-          \item We empirically investigated the convergence behaviors of two second order methods to
-                more fully characterize them and determine if their benefits outweigh their cost
+          \item We desired an empirically sound investigation into the convergence behaviors of two
+                second order methods and to more fully characterize them and determine if their benefits
+                outweigh their cost
+          \item Additionally, we desired an empirically sound investigation into the effects of
+                minibatching on gradient-based optimizers.
         \end{itemize}
 
       \end{alertblock}
 
       \begin{block}{Method}
-
-
-      \end{block}
-
-    \end{column}
-
-    \separatorcolumn
-
-    \begin{column}{\colwidth}
-
-      \begin{block}{A block containing an enumerated list}
-
-        Vivamus congue volutpat elit non semper. Praesent molestie nec erat ac
-        interdum. In quis suscipit erat. \textbf{Phasellus mauris felis, molestie
-          ac pharetra quis}, tempus nec ante. Donec finibus ante vel purus mollis
-        fermentum. Sed felis mi, pharetra eget nibh a, feugiat eleifend dolor. Nam
-        mollis condimentum purus quis sodales. Nullam eu felis eu nulla eleifend
-        bibendum nec eu lorem. Vivamus felis velit, volutpat ut facilisis ac,
-        commodo in metus.
-
-        \begin{enumerate}
-          \item \textbf{Morbi mauris purus}, egestas at vehicula et, convallis
-                accumsan orci. Orci varius natoque penatibus et magnis dis parturient
-                montes, nascetur ridiculus mus.
-          \item \textbf{Cras vehicula blandit urna ut maximus}. Aliquam blandit nec
-                massa ac sollicitudin. Curabitur cursus, metus nec imperdiet bibendum,
-                velit lectus faucibus dolor, quis gravida metus mauris gravida turpis.
-          \item \textbf{Vestibulum et massa diam}. Phasellus fermentum augue non
-                nulla accumsan, non rhoncus lectus condimentum.
-        \end{enumerate}
-
-      \end{block}
-
-      \begin{block}{Fusce aliquam magna velit}
-
-        Et rutrum ex euismod vel. Pellentesque ultricies, velit in fermentum
-        vestibulum, lectus nisi pretium nibh, sit amet aliquam lectus augue vel
-        velit. Suspendisse rhoncus massa porttitor augue feugiat molestie. Sed
-        molestie ut orci nec malesuada. Sed ultricies feugiat est fringilla
-        posuere.
-
-        \begin{figure}
-          \centering
-          \begin{tikzpicture}
-            \begin{axis}[
-                scale only axis,
-                no markers,
-                domain=0:2*pi,
-                samples=100,
-                axis lines=center,
-                axis line style={-},
-                ticks=none]
-              \addplot[red] {sin(deg(x))};
-              \addplot[blue] {cos(deg(x))};
-            \end{axis}
-          \end{tikzpicture}
-          \caption{Another figure caption.}
-        \end{figure}
-
-      \end{block}
-
-      \begin{block}{Nam cursus consequat egestas}
-
-        Nulla eget sem quam. Ut aliquam volutpat nisi vestibulum convallis. Nunc a
-        lectus et eros facilisis hendrerit eu non urna. Interdum et malesuada fames
-        ac ante \textit{ipsum primis} in faucibus. Etiam sit amet velit eget sem
-        euismod tristique. Praesent enim erat, porta vel mattis sed, pharetra sed
-        ipsum. Morbi commodo condimentum massa, \textit{tempus venenatis} massa
-        hendrerit quis. Maecenas sed porta est. Praesent mollis interdum lectus,
-        sit amet sollicitudin risus tincidunt non.
-
-        Etiam sit amet tempus lorem, aliquet condimentum velit. Donec et nibh
-        consequat, sagittis ex eget, dictum orci. Etiam quis semper ante. Ut eu
-        mauris purus. Proin nec consectetur ligula. Mauris pretium molestie
-        ullamcorper. Integer nisi neque, aliquet et odio non, sagittis porta justo.
-
         \begin{itemize}
-          \item \textbf{Sed consequat} id ante vel efficitur. Praesent congue massa
-                sed est scelerisque, elementum mollis augue iaculis.
-                \begin{itemize}
-                  \item In sed est finibus, vulputate
-                        nunc gravida, pulvinar lorem. In maximus nunc dolor, sed auctor eros
-                        porttitor quis.
-                  \item Fusce ornare dignissim nisi. Nam sit amet risus vel lacus
-                        tempor tincidunt eu a arcu.
-                  \item Donec rhoncus vestibulum erat, quis aliquam leo
-                        gravida egestas.
-                \end{itemize}
-          \item \textbf{Sed luctus, elit sit amet} dictum maximus, diam dolor
-                faucibus purus, sed lobortis justo erat id turpis.
-          \item \textbf{Pellentesque facilisis dolor in leo} bibendum congue.
-                Maecenas congue finibus justo, vitae eleifend urna facilisis at.
+          \item We developed a library of Second Order Optimizers (SOOs) in PyTorch including nonlinear
+                Conjugate Gradient (NLCG) and Hessian-Free Quasi-Newton(HFQN) methods
+          \item We elected to train a ResNet-18 model on CIFAR10 to balance the need for a large
+                number of trials with a more complex model
+          \item We elected to test and analyze (Stochastic) Gradient Descent (SGD) compared to the
+                Fletcher-Reeves (FR) NLCG method and Limited Memory Broyden-Fletcher-Goldfarb-Shanno
+                (L-BFGS) HFQN method
+          \item A range of ``reasonable'' hyperparameters for each optimizer was selected and a
+                randomized grid search was used to select the hyperparameters per training session.
+                For instance, SGD may take a learning rate of $0.1, 0.05, 0.01$, etc., but not $1.0$.
+                This was intended to mimic a real-world hyperparameter tuning process.
+          \item Each trial consisted of training the model with a random initialization for 100 epochs
+          \item Hundreds of trials were conducted for each optimizer over the course of several
+                weeks on PNNL's Marianas GPU cluster
+          \item A two-way ANOVA test was conducted to assess the relationship between optimizer,
+                batch sizes, and peak test accuracy in a training session
         \end{itemize}
 
       \end{block}
+      \begin{block}{System Information}
+        \begin{itemize}
+          \item Nvidia DGX-2 GPU AI Server
+          \item 16 Nvidia Tesla V100 GPU's, 1 per Training Session
+          \item Dual Intel Xeon Platinum 8168, 2.7GHz, 24-core
+        \end{itemize}
+      \end{block}
 
     \end{column}
 
@@ -207,76 +144,92 @@
 
     \begin{column}{\colwidth}
 
-      \begin{exampleblock}{A highlighted block containing some math}
-
-        A different kind of highlighted block.
-
-        $$
-          \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
-        $$
-
-        Interdum et malesuada fames $\{1, 4, 9, \ldots\}$ ac ante ipsum primis in
-        faucibus. Cras eleifend dolor eu nulla suscipit suscipit. Sed lobortis non
-        felis id vulputate.
-
-        \heading{A heading inside a block}
-
-        Praesent consectetur mi $x^2 + y^2$ metus, nec vestibulum justo viverra
-        nec. Proin eget nulla pretium, egestas magna aliquam, mollis neque. Vivamus
-        dictum $\mathbf{u}^\intercal\mathbf{v}$ sagittis odio, vel porta erat
-        congue sed. Maecenas ut dolor quis arcu auctor porttitor.
-
-        \heading{Another heading inside a block}
-
-        Sed augue erat, scelerisque a purus ultricies, placerat porttitor neque.
-        Donec $P(y \mid x)$ fermentum consectetur $\nabla_x P(y \mid x)$ sapien
-        sagittis egestas. Duis eget leo euismod nunc viverra imperdiet nec id
-        justo.
-
-      \end{exampleblock}
-
-      \begin{block}{Nullam vel erat at velit convallis laoreet}
-
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-        inceptos himenaeos. Phasellus libero enim, gravida sed erat sit amet,
-        scelerisque congue diam. Fusce dapibus dui ut augue pulvinar iaculis.
-
-        \begin{table}
+      \begin{block}{Results}
+        \begin{figure}
           \centering
-          \begin{tabular}{l r r c}
-            \toprule
-            \textbf{First column} & \textbf{Second column} & \textbf{Third column} & \textbf{Fourth} \\
-            \midrule
-            Foo                   & 13.37                  & 384,394               & $\alpha$        \\
-            Bar                   & 2.17                   & 1,392                 & $\beta$         \\
-            Baz                   & 3.14                   & 83,742                & $\delta$        \\
-            Qux                   & 7.59                   & 974                   & $\gamma$        \\
-            \bottomrule
+          \textbf{Optimizer Peak Test Accuracy in 100 Epochs}
+          \includegraphics[width=\columnwidth]{peak_acc_violin_comparison.png}
+        \end{figure}
+
+        \begin{figure}
+          \centering
+          \textbf{Optimizer Time to Peak Test Accuracy in 100 Epochs (Log-linear)}
+          \includegraphics[width=\columnwidth]{ttp_violin_comparison.png}
+        \end{figure}
+        \begin{table}[]
+          \begin{tabular}{|llllll|}
+            \hline
+            \multicolumn{6}{|c|}{\textbf{ANOVA Table with Outlier Treatment}}                                                                                                      \\ \hline
+            \multicolumn{1}{|l|}{Source} & \multicolumn{1}{l|}{DF} & \multicolumn{1}{l|}{Type III SS} & \multicolumn{1}{l|}{Mean Square} & \multicolumn{1}{l|}{F Value} & PR$>$F   \\ \hline
+            Batch Size                   & 5                       & 35.92                            & 7.18                             & 480.66                       & $<0.001$ \\
+            Optimizer                    & 2                       & 1.37                             & 0.684                            & 45.78                        & $<0.001$ \\
+            Interaction                  & 10                      & 4.11                             & 0.41                             & 27.51                        & $<0.001$ \\ \hline
           \end{tabular}
-          \caption{A table caption.}
         \end{table}
 
-        Donec quis posuere ligula. Nunc feugiat elit a mi malesuada consequat. Sed
-        imperdiet augue ac nibh aliquet tristique. Aenean eu tortor vulputate,
-        eleifend lorem in, dictum urna. Proin auctor ante in augue tincidunt
-        tempor. Proin pellentesque vulputate odio, ac gravida nulla posuere
-        efficitur. Aenean at velit vel dolor blandit molestie. Mauris laoreet
-        commodo quam, non luctus nibh ullamcorper in. Class aptent taciti sociosqu
-        ad litora torquent per conubia nostra, per inceptos himenaeos.
-
-        Nulla varius finibus volutpat. Mauris molestie lorem tincidunt, iaculis
-        libero at, gravida ante. Phasellus at felis eu neque suscipit suscipit.
-        Integer ullamcorper, dui nec pretium ornare, urna dolor consequat libero,
-        in feugiat elit lorem euismod lacus. Pellentesque sit amet dolor mollis,
-        auctor urna non, tempus sem.
 
       \end{block}
 
-      \begin{block}{References}
+    \end{column}
 
-        \nocite{*}
-        \footnotesize{\bibliographystyle{plain}\bibliography{poster}}
+    \separatorcolumn
 
+    \begin{column}{\colwidth}
+      \begin{block}{Results, continued}
+        \begin{table}[]
+          \begin{tabular}{|llll|}
+            \hline
+            \multicolumn{4}{|c|}{\textbf{Pairwise Tests for Interaction Effects with Outlier Treatment}}                        \\ \hline
+            \multicolumn{1}{|l|}{Batch Size} & \multicolumn{1}{l|}{Treatment} & \multicolumn{1}{l|}{LS Means} & Letter Grouping \\ \hline
+            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.3292}   & A               \\
+            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.3256}   & A               \\
+            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.2597}   & A               \\ \hline
+            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.3222}   & A               \\
+            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.2354}   & B               \\
+            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.0879}   & C               \\ \hline
+            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.1471}   & A               \\
+            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.0456}   & B               \\
+            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.0358}   & B               \\ \hline
+            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.2354}   & A               \\
+            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.0456}   & A               \\
+            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9925}   & B               \\ \hline
+            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{3.9687}   & A               \\
+            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9644}   & A               \\
+            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{3.9288}   & A               \\ \hline
+            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9089}   & A               \\
+            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{3.8894}   & A               \\
+            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{3.782}    & B               \\ \hline
+          \end{tabular}
+        \end{table}
+      \end{block}
+
+      \begin{exampleblock}{Open Source Implementation}
+        All source code is available at: \href{https://github.com/pnnl/pytorch_soo}{github.com/pnnl/pytorch\_soo}\newline
+        Please feel free to use, cite, and open PR's!
+
+      \end{exampleblock}
+
+
+      \begin{block}{Conclusion}
+        We have provided \textbf{strong, empirical} evidence for the often discussed effect of
+        ``implicit regularization'' afforded by minibatching: decreased batch size produces
+        increased peak accuracy. This effect \textbf{generalizes across optimizers}. This implies
+        that acceleration via increased hardware utilization through larger batch sizes is likely
+        not a viable research direction under the current paradigm. SOOs demonstrate \textbf{improved
+          convergence results in peak accuracy}, both through \textbf{higher mean and lower variance}.
+        While they exhibit slower wall-clock performance, this insensitivity to hyperparameters
+        suggests that \textbf{hyperoptimization efforts may not be needed}, providing
+        \textbf{amortized time savings}.  This reduces cost, complexity, and increases confidence in
+        the results of a training session.
+
+      \end{block}
+
+      \begin{block}{Aknowledgements}
+        The authors wish to thank PNNL for providing the funding and compute resources to make this scale
+        of a study possible.
+
+        A special thanks to Dr. Tony Chiang, Dr. Andrew Lumsdaine, and Dr. Nairanjana Dasgupta for
+        their unrelenting support on this project.
       \end{block}
 
     \end{column}
