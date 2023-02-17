@@ -37,7 +37,7 @@
 % Title
 % ====================
 
-\title{Mini-batching Offers Improved Performance for Second Order Optimizers}
+\title{Minibatching Offers Improved Performance for Second Order Optimizers}
 
 \author{Eric Silk \inst{1} \and Swarnita Chakraborty \inst{2} \and Tony Chiang \inst{3}}
 
@@ -104,7 +104,7 @@
                 second order methods and to more fully characterize them and determine if their benefits
                 outweigh their cost
           \item Additionally, we desired an empirically sound investigation into the effects of
-                minibatching on gradient-based optimizers.
+                minibatching on gradient-based optimizers
         \end{itemize}
 
       \end{alertblock}
@@ -112,16 +112,18 @@
       \begin{block}{Method}
         \begin{itemize}
           \item We developed a library of Second Order Optimizers (SOOs) in PyTorch including nonlinear
-                Conjugate Gradient (NLCG) and Hessian-Free Quasi-Newton(HFQN) methods
+                Conjugate Gradient (NLCG) and Hessian-Free Quasi-Newton (HFQN) methods
           \item We elected to train a ResNet-18 model on CIFAR10 to balance the need for a large
                 number of trials with a more complex model
           \item We elected to test and analyze (Stochastic) Gradient Descent (SGD) compared to the
                 Fletcher-Reeves (FR) NLCG method and Limited Memory Broyden-Fletcher-Goldfarb-Shanno
                 (L-BFGS) HFQN method
-          \item A range of ``reasonable'' hyperparameters for each optimizer was selected and a
-                randomized grid search was used to select the hyperparameters per training session.
-                For instance, SGD may take a learning rate of $0.1, 0.05, 0.01$, etc., but not $1.0$.
-                This was intended to mimic a real-world hyperparameter tuning process.
+                %TODO fix to not require periods
+          \item To mimic a real-world hyperparameter tuning process, a range of reasonable
+                hyperparameters (e.g. SGD's learning rate was set to values well under 1, the maximum
+                number of line searches allowed per step was kept to 10 or less) for each optimizer was
+                selected and a randomized grid search was used to select the hyperparameters per training
+                session.
           \item Each trial consisted of training the model with a random initialization for 100 epochs
           \item Hundreds of trials were conducted for each optimizer over the course of several
                 weeks on PNNL's Marianas GPU cluster
