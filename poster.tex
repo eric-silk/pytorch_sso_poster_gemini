@@ -39,12 +39,13 @@
 
 \title{Minibatching Offers Improved Performance for Second Order Optimizers}
 
-\author{Eric Silk \inst{1} \and Swarnita Chakraborty \inst{2} \and Tony Chiang \inst{3}}
+\author{Eric Silk \inst{1} \and Swarnita Chakraborty \inst{2} \and Dasgupta Nairanjana \inst{2} \and Andrew Lumsdaine \inst{3} \and Tony Chiang \inst{3,4} }
 
 \institute[shortinst]{
   \inst{1} University of Washington/University of Illinois Urbana-Champaign \samelineand
   \inst{2} Washington State University \samelineand
   \inst{3} Pacific Northwest National Laboratory
+  \inst{4} University of Washington Dept. of Mathematics
 }
 
 % ====================
@@ -83,10 +84,10 @@
         expensive. Large datasets, therefore, rely on stochastic, first order methods for training;
         however, these often require significant tuning by hand to produce good performance. We
         empirically study the variability of different stochastic algorithms, including second-order
-        methods, by treating their performance as an experiment and retraining the same model many
-        times. Using 2-factor Analysis of Variance (ANOVA) with interactions, we show that batch
-        size has a statistically significant effect on the peak accuracy of the methods, and that
-        the full batch was largely the worst of them. Additionally, second order optimizers
+        methods, by treating their performance as an experiment and retraining the same architecture
+        many times. Using 2-factor Analysis of Variance (ANOVA) with interactions, we show that
+        batch size has a statistically significant effect on the peak accuracy of the methods, and
+        that the full batch was largely the worst of them. Additionally, second order optimizers
         exhibited significantly lower variance, implying they may require less hyperparameter
         tuning, leading to a reduced overall training time.
 
@@ -113,21 +114,19 @@
         \begin{itemize}
           \item We developed a library of Second Order Optimizers (SOOs) in PyTorch including nonlinear
                 Conjugate Gradient (NLCG) and Hessian-Free Quasi-Newton (HFQN) methods
-          \item We elected to train a ResNet-18 model on CIFAR10 to balance the need for a large
+          \item We trained a ResNet-18 model on CIFAR10 to balance the need for a large
                 number of trials with a more complex model
-          \item We elected to test and analyze (Stochastic) Gradient Descent (SGD) compared to the
-                Fletcher-Reeves (FR) NLCG method and Limited Memory Broyden-Fletcher-Goldfarb-Shanno
-                (L-BFGS) HFQN method
-                %TODO fix to not require periods
+          \item We contrasted (Stochastic) Gradient Descent (SGD) with Fletcher-Reeves (FR) NLCG
+                method and Limited Memory Broyden-Fletcher-Goldfarb-Shanno (L-BFGS) HFQN method
           \item To mimic a real-world hyperparameter tuning process, a range of reasonable
                 hyperparameters (e.g. SGD's learning rate was set to values well under 1, the maximum
                 number of line searches allowed per step was kept to 10 or less) for each optimizer was
                 selected and a randomized grid search was used to select the hyperparameters per training
-                session.
+                session
           \item Each trial consisted of training the model with a random initialization for 100 epochs
           \item Hundreds of trials were conducted for each optimizer over the course of several
                 weeks on PNNL's Marianas GPU cluster
-          \item A two-way ANOVA test was conducted to assess the relationship between optimizer,
+          \item A two-factor ANOVA test was conducted to assess the relationship between optimizer,
                 batch sizes, and peak test accuracy in a training session
         \end{itemize}
 
@@ -181,26 +180,26 @@
         \begin{table}[]
           \begin{tabular}{|llll|}
             \hline
-            \multicolumn{4}{|c|}{\textbf{Pairwise Tests for Interaction Effects with Outlier Treatment}}                        \\ \hline
-            \multicolumn{1}{|l|}{Batch Size} & \multicolumn{1}{l|}{Treatment} & \multicolumn{1}{l|}{LS Means} & Letter Grouping \\ \hline
-            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.3292}   & A               \\
-            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.3256}   & A               \\
-            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.2597}   & A               \\ \hline
-            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.3222}   & A               \\
-            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.2354}   & B               \\
-            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.0879}   & C               \\ \hline
-            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.1471}   & A               \\
-            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.0456}   & B               \\
-            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.0358}   & B               \\ \hline
-            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.2354}   & A               \\
-            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.0456}   & A               \\
-            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9925}   & B               \\ \hline
-            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{3.9687}   & A               \\
-            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9644}   & A               \\
-            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{3.9288}   & A               \\ \hline
-            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9089}   & A               \\
-            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{3.8894}   & A               \\
-            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{3.782}    & B               \\ \hline
+            \multicolumn{4}{|c|}{\textbf{Pairwise Tests for Interaction Effects with Outlier Treatment}}                                             \\ \hline
+            \multicolumn{1}{|l|}{Batch Size} & \multicolumn{1}{l|}{Treatment} & \multicolumn{1}{l|}{LS Means} & \multicolumn{1}{c|}{Letter Grouping} \\ \hline
+            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.3292}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.3256}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{100}        & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.2597}   & \multicolumn{1}{c|}{A}               \\ \hline
+            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.3222}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.2354}   & \multicolumn{1}{c|}{B}               \\
+            \multicolumn{1}{|l|}{1000}       & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.0879}   & \multicolumn{1}{c|}{C}               \\ \hline
+            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.1471}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.0456}   & \multicolumn{1}{c|}{B}               \\
+            \multicolumn{1}{|l|}{5000}       & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{4.0358}   & \multicolumn{1}{c|}{B}               \\ \hline
+            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{4.2354}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{4.0456}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{10000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9925}   & \multicolumn{1}{c|}{B}               \\ \hline
+            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{3.9687}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9644}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{25000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{3.9288}   & \multicolumn{1}{c|}{A}               \\ \hline
+            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{SGD}       & \multicolumn{1}{l|}{3.9089}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{FR}        & \multicolumn{1}{l|}{3.8894}   & \multicolumn{1}{c|}{A}               \\
+            \multicolumn{1}{|l|}{50000}      & \multicolumn{1}{l|}{L-BFGS}    & \multicolumn{1}{l|}{3.782}    & \multicolumn{1}{c|}{B}               \\ \hline
           \end{tabular}
         \end{table}
       \end{block}
