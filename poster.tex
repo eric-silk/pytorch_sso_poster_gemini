@@ -39,13 +39,14 @@
 
 \title{Minibatching Offers Improved Performance for Second Order Optimizers}
 
-\author{Eric Silk \inst{1} \and Swarnita Chakraborty \inst{2} \and Dasgupta Nairanjana \inst{2} \and Andrew Lumsdaine \inst{3} \and Tony Chiang \inst{3,4} }
+\author{Eric Silk \inst{1} \and Swarnita Chakraborty \inst{2} \and Dasgupta Nairanjana \inst{2} \and Anand D. Sarwate \inst{3} \and Andrew Lumsdaine \inst{4} \and Tony Chiang \inst{4,5} }
 
 \institute[shortinst]{
   \inst{1} University of Washington/University of Illinois Urbana-Champaign \samelineand
-  \inst{2} Washington State University \samelineand
-  \inst{3} Pacific Northwest National Laboratory
-  \inst{4} University of Washington Dept. of Mathematics
+  \inst{2} Washington State University 
+  \inst{3} Rutgers, the State University of New Jersey \\
+  \inst{4} Pacific Northwest National Laboratory \samelineand
+  \inst{5} University of Washington Dept. of Mathematics
 }
 
 % ====================
@@ -55,7 +56,7 @@
 \footercontent{
   \hfill
   JSM 2023, Toronto Canada\hfill
-  \href{mailto:esilk2@illinois.edu}{esilk2@illinois.edu}}
+  \href{mailto:tony.chiang@pnnl.gov}{tony.chiang@pnnl.gov}}
 % (can be left out to remove footer)
 
 % ====================
@@ -125,7 +126,7 @@
                 session
           \item Each trial consisted of training the model with a random initialization for 100 epochs
           \item Hundreds of trials were conducted for each optimizer over the course of several
-                weeks on PNNL's Marianas GPU cluster
+                weeks on a GPU cluster
           \item A two-factor ANOVA test was conducted to assess the relationship between optimizer,
                 batch sizes, and peak test accuracy in a training session
         \end{itemize}
@@ -230,11 +231,17 @@
       \end{block}
 
       \begin{block}{Aknowledgements}
-        The authors wish to thank PNNL for providing the funding and compute resources to make this scale
-        of a study possible.
-
-        A special thanks to Dr. Tony Chiang, Dr. Andrew Lumsdaine, and Dr. Nairanjana Dasgupta for
-        their unrelenting support on this project.
+        A.D.S.\ and T.C.\ were partially supported by the Statistical Inference
+        Generates kNowledge for Artificial Learners (SIGNAL) program at Pacific
+        Northwest National Laboratory (PNNL), as well as by the Mathematics for
+        Artificial Reasoning in Science (MARS) initiative via the Laboratory
+        Directed Research and Development (LDRD) Program at PNNL.  E.S.\ was
+        partially supported by the Physical and Computational Sciences
+        Directorate's Science Mission Seed LDRD. A.L.\ was partially supported
+        by the High Performance Data Analytics (HPDA) program at PNNL and by the
+        Data-Model Convergence Initiative LDRD Program. PNNL is a multi-program
+        national laboratory operated for the U.S. Department of Energy (DOE) by
+        Battelle Memorial Institute under Contract No. DE-AC05-76RL0-1830.
       \end{block}
 
     \end{column}
