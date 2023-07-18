@@ -11,7 +11,7 @@
 \usepackage{lmodern}
 \usepackage[size=custom,width=120,height=72,scale=1.0]{beamerposter}
 \usetheme{gemini}
-\usecolortheme{gemini}
+\usecolortheme{pnnl}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tikz}
@@ -54,7 +54,7 @@
 
 \footercontent{
   \hfill
-  CSLSC 2023, Urbana Illinois \hfill
+  JSM 2023, Toronto Canada\hfill
   \href{mailto:esilk2@illinois.edu}{esilk2@illinois.edu}}
 % (can be left out to remove footer)
 
@@ -63,7 +63,7 @@
 % ====================
 
 % use this to include logos on the left and/or right side of the header:
-\logoright{\includegraphics[height=7cm]{pnnl_logo.png}}
+\logoright{\includegraphics[height=7cm]{alt_pnnl_logo.png}}
 % \logoleft{\includegraphics[height=7cm]{logo2.pdf}}
 
 % ====================
@@ -212,17 +212,21 @@
 
 
       \begin{block}{Conclusion}
-        We have provided \textbf{strong, empirical} evidence for the often discussed effect of
-        ``implicit regularization'' afforded by minibatching: decreased batch size produces
-        increased peak accuracy. This effect \textbf{generalizes across optimizers}. This implies
-        that acceleration via increased hardware utilization through larger batch sizes is likely
-        not a viable research direction under the current paradigm. SOOs demonstrate \textbf{improved
-          convergence results in peak accuracy}, both through \textbf{higher mean and lower variance}.
-        While they exhibit slower wall-clock performance, this insensitivity to hyperparameters
-        suggests that \textbf{hyperoptimization efforts may not be needed}, providing
-        \textbf{amortized time savings}.  This reduces cost, complexity, and increases confidence in
-        the results of a training session.
-
+        We have provided \textbf{strong, empirical} evidence for the often
+        discussed effect of ``implicit regularization'' afforded by
+        minibatching: decreased batch size produces increased peak accuracy.
+        This effect \textbf{generalizes across optimizers}. This implies that
+        acceleration via increased hardware utilization through larger batch
+        sizes is likely not a viable research direction under the current
+        paradigm. SOOs demonstrate \textbf{improved convergence results in peak
+          accuracy}, both through \textbf{higher mean and lower variance}.
+        Considering batch size as a a hyperparameter, this strongly indicates
+        \textbf{not all hyperparameters are equally important}.  While they
+        exhibit slower wall-clock performance, this insensitivity to other
+        hyperparameters suggests that \textbf{hyperoptimization efforts may not
+          be needed}, providing \textbf{amortized time savings}. This reduces cost,
+        complexity, and increases confidence in the results of a training
+        session.
       \end{block}
 
       \begin{block}{Aknowledgements}
